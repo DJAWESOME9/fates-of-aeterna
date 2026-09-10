@@ -16,8 +16,8 @@ Open `prototype/index.html` in a browser.
 
 ## Highlights
 
-- 34 playable Greek and Roman mythic characters
-- Nine curated team presets, including Artemis’ Hunt
+- 38 playable Greek and Roman mythic characters
+- Ten curated team presets, including Hades’ Court and Artemis’ Hunt
 - Deterministic turn-meter combat and AI
 - Responsive desktop and mobile layouts
 - Local painted character artwork
