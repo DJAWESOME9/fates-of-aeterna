@@ -4,7 +4,7 @@ A playable tactical combat game inspired by Greek and Roman mythology, with a se
 
 ## Player Mode
 
-[Open the live game](https://djawesome9.github.io/fates-of-aeterna/)
+[Open the live game](https://djawesome9.github.io/fates-of-aeterna/play/)
 
 Follow the Thread of Fate through a 12-encounter branching Chapter I, The Broken Thread. Choose between the Serpent Path and Winged Path, then converge on a longer monster road toward the Thread-Eater and the Heart of the Wild. Every Chapter I encounter remains a monster-only battle: Arachne, Medusa, Hydra, Minotaur, Harpy, Aegean Scorpion, or Basilisk.
 
