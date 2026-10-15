@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="../assets/game-icon.svg">
+  <link rel="apple-touch-icon" href="../assets/game-icon.svg">
+  <meta name="theme-color" content="#17130f">
   <title>Fates of Aeterna — Player Mode</title>
   <style>
     :root{--ink:#17130f;--ash:#29241d;--char:#0d0c0a;--stone:#e8d8b5;--sand:#c9a870;--bronze:#aa7a31;--gold:#f2c96d;--terra:#a84f32;--ox:#702e2c;--blue:#307588;--olive:#657044;--verd:#4f8374;--red:#ad3d35;--hp:#b74e3d;--tm:#e7bf62;--panel:rgba(34,27,20,.94)}
@@ -84,10 +87,13 @@
     @media(max-width:900px){.workshop-grid{grid-template-columns:1fr}.active-forge{position:static;min-height:360px}.resource-shelf{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:700px){.crafting-screen{min-height:calc(100vh - 62px)}.workshop-hero{padding:30px 18px 23px}.workshop-body{padding:15px 10px}.resource-shelf{grid-template-columns:repeat(2,1fr)}.recipe-list{grid-template-columns:1fr}.active-forge{padding:20px 14px;min-height:350px}.forge-anvil{width:130px;height:130px;margin-top:24px}.forge-anvil:before{width:88px;height:88px}.top-actions{grid-template-columns:minmax(0,1fr) auto}.main-nav{max-width:100%;grid-column:1/-1}.resource-ledger{grid-column:1;grid-row:2;min-width:0;justify-content:flex-start;overflow-x:auto}.test-link{grid-column:2;grid-row:2;justify-self:end}.nav-btn{flex:0 0 auto}}
     .resource-shelf{display:flex;overflow-x:auto;overscroll-behavior-inline:contain;padding:2px 2px 10px;scrollbar-width:thin;scrollbar-color:#a77a3d #17130f;-webkit-overflow-scrolling:touch}.resource-shelf::-webkit-scrollbar{height:6px}.resource-shelf::-webkit-scrollbar-track{background:#17130f}.resource-shelf::-webkit-scrollbar-thumb{background:#a77a3d;border-radius:99px;border:1px solid #17130f}.shelf-item{flex:1 0 0;min-width:138px}
+.resource-shelf{scrollbar-width:none;-ms-overflow-style:none}.resource-shelf::-webkit-scrollbar{width:0;height:0;display:none}
 </style>
 <style>
 /* Compact, interactive campaign resource ledger. */
 .resource-ledger{flex:1 1 0!important;width:min(100%,420px);max-width:420px!important;min-height:28px!important;gap:7px!important;padding:4px 7px!important;font-size:9px!important;line-height:1.2}
+.resource-ledger{scrollbar-width:none;-ms-overflow-style:none}
+.resource-ledger::-webkit-scrollbar{width:0;height:0;display:none}
 .resource-ledger .ledger-item{border:1px solid transparent;background:transparent;color:inherit;padding:2px 4px;cursor:pointer;font:inherit;white-space:nowrap}
 .resource-ledger .ledger-item:hover,.resource-ledger .ledger-item:focus-visible{border-color:#b88b45;color:#ffe19a;background:#352516}
 .resource-ledger .ledger-item.pinned{border-color:#d9ad54;color:#ffe19a;background:#4a3219;box-shadow:inset 0 -2px #d5a347}
