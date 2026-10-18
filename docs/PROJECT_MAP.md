@@ -9,6 +9,8 @@ This is a source-navigation reference, not a second specification. The executabl
 | Player character and enemy data | [../play/index.html](../play/index.html) | `const C=` |
 | Player campaign stages and rewards | [../play/index.html](../play/index.html) | `const CAMPAIGN=` |
 | Player save format and migration | [../play/index.html](../play/index.html) | `SAVE_KEY`, `SAVE_VERSION`, `freshProgress`, `loadProgress` |
+| Accounts and manual cloud saves | [../play/cloud.js](../play/cloud.js) | `fetchSave`, `cloudUpload`, `cloudRestore` |
+| Supabase configuration and private save schema | [SUPABASE_SETUP.md](SUPABASE_SETUP.md) | `supabase-config.js`, `player_saves` |
 | Attribute Ring rules | [../play/index.html](../play/index.html) | `RING_ATTRIBUTES`, `RING_RANK_COSTS`, `ringRequirement` |
 | Crafting recipes and lifecycle | [../play/index.html](../play/index.html) | `CRAFT_RECIPES`, `startCraft`, `claimCraft` |
 | Player combat engine | [../play/index.html](../play/index.html) | `startBattle`, `resolve`, `damage`, `beginTurn`, `checkDeath` |

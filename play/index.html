@@ -110,10 +110,37 @@
   .campaign-hero.chapter-iii:after{background-image:linear-gradient(90deg,#17130ff7 0,#17130fc9 48%,#17130f52),url('../assets/greek-roman-character-lineup-v1.png');background-size:auto,58% auto;background-position:0 0,right 24%;filter:sepia(.65) hue-rotate(355deg)}
   #campaignHero.chapter-iii + .campaign-body .route-label.underworld,#campaignHero.chapter-iv + .campaign-body .route-label.underworld{display:block}
 </style>
+<style>
+.cloud-panel{margin:12px 0;padding:14px;border:1px solid #8b7045;border-radius:8px;background:#201b16;color:#e9ddc4}
+.cloud-panel summary{cursor:pointer;color:#edc879;font-weight:bold}.cloud-panel p{font-size:13px;line-height:1.5}
+.cloud-form,.cloud-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:12px 0}.cloud-form label{display:grid;gap:5px;font-size:13px}
+.cloud-form input{background:#17130f;color:#eee1c7;border:1px solid #8b7045;border-radius:4px;padding:10px;max-width:100%;box-sizing:border-box}
+.cloud-panel button{padding:10px;border:1px solid #8b7045;background:#352a1d;color:#f3dfb2;border-radius:4px;cursor:pointer}.cloud-panel button:disabled{opacity:.5;cursor:default}
+@media(max-width:600px){.cloud-form label{width:100%}.cloud-form input{width:100%}}
+</style>
 </head>
 <body>
 <div class="shell">
   <header class="topbar"><div class="brand"><span class="sigil"></span><div><h1>Fates of Aeterna</h1><small>A Greek & Roman mythic strategy</small></div></div><div class="top-actions"><nav class="main-nav" aria-label="Player Mode"><button class="nav-btn active" id="campaignNav" type="button">Campaign</button><button class="nav-btn" id="collectionNav" type="button">Collection</button><button class="nav-btn" id="ringNav" type="button">Attribute Ring</button><button class="nav-btn" id="craftingNav" type="button">Crafting</button></nav><button id="soundBtn" class="sound-btn" type="button" aria-pressed="true">♫ SOUND ON</button><span class="resource-ledger" id="resourceLedger" aria-label="Campaign resources"></span><span class="account-summary" id="accountSummary">The ledger is opening…</span><a class="test-link" href="../prototype/">Test Interface</a></div></header>
+  <details class="cloud-panel" id="cloudPanel">
+    <summary>Account &amp; cloud save</summary>
+    <p id="cloudStatus" role="status" aria-live="polite">Guest play · progress saves on this device.</p>
+    <p>Cloud saves are manual. Sign in, then upload this device’s progress or restore your account’s save. Signing in never replaces progress automatically.</p>
+    <form id="cloudForm" class="cloud-form">
+      <label>Email<input id="cloudEmail" type="email" autocomplete="email" required maxlength="254"></label>
+      <label>Password<input id="cloudPassword" type="password" autocomplete="current-password" required minlength="8"></label>
+      <button id="cloudLogin" type="submit" disabled>Sign in</button>
+      <button id="cloudSignup" type="button" disabled>Create account</button>
+      <button id="cloudRecovery" type="button" disabled>Forgot password</button>
+    </form>
+    <div class="cloud-actions">
+      <button id="cloudUpload" type="button" disabled>Upload device save</button>
+      <button id="cloudRestore" type="button" disabled>Restore cloud save</button>
+      <button id="cloudLogout" type="button" disabled>Sign out</button>
+      <button id="cloudUpdatePassword" type="button" hidden>Set new password</button>
+    </div>
+    <p>Signing out keeps this device’s progress. Only use a personal device for saved sessions.</p>
+  </details>
   <main>
     <section id="campaign" class="screen campaign">
       <div id="campaignHero" class="campaign-hero"><nav id="chapterSelector" class="chapter-selector" aria-label="Campaign chapters"><button type="button" data-chapter="I">Chapter I · The Broken Thread</button><button type="button" data-chapter="II" disabled>Chapter II · The Contest of Heroes</button><button type="button" data-chapter="III" disabled>Chapter III · The Weight of Souls</button></nav><div id="chapterKicker" class="chapter-kicker">Chapter I</div><h2 id="chapterTitle">The Broken Thread</h2><p id="chapterIntro">Atalanta and Heracles pursue a stolen strand into a monster-haunted wilderness. The Serpent Path and Winged Path divide the road, but every beast stands between the covenant and the wild heart.</p><div class="chapter-progress"><span id="chapterProgressText">0 / 12 encounters mastered</span><div class="chapter-progress-track"><div id="chapterProgressFill" class="chapter-progress-fill" style="width:0%"></div></div></div><span id="chapterGate" class="chapter-gate"></span></div>
@@ -805,5 +832,7 @@ async function beginTurn(u){
 function fighter(u){let st=[];if(!u.dead&&u.tags.includes('Legion'))st.push(statusChip('discipline',`DISC ${state.battle.discipline[u.side]}`));if(u.status.bronzeGuardian)st.push(statusChip('bronzeGuardian',`BRONZE ${u.status.bronzeGuardian}`));if(u.status.soul)st.push(statusChip('soul',isClaimed(u)?'SOUL 10 · CLAIMED':`SOUL ${u.status.soul}`,true,soulLocked(u)));if(u.status.thread)st.push(statusChip('thread',`THREAD ${u.status.thread}`,true));if(u.status.entangled)st.push(statusChip('entangled','ENTANGLED',true));if(u.status.stun)st.push(statusChip('stun','STUNNED',true));if(u.status.burn)st.push(statusChip('burn',`BURN ${u.status.burn}`,true));if(u.status.daze)st.push(statusChip('daze','DAZED',true));if(u.status.labyrinth)st.push(statusChip('labyrinth','LABYRINTH',true));if(u.status.shield)st.push(statusChip('shield',`SHIELD ${u.status.shield}`));if(u.status.stealth)st.push(statusChip('stealth','STEALTH'));if(u.status.foresight)st.push(statusChip('foresight','FORESIGHT'));if(u.status.guided)st.push(statusChip('guided','GUIDED'));if(u.status.deceived)st.push(statusChip('deceived','DECEIVED',true));if(u.status.exposed)st.push(statusChip('exposed','EXPOSED',true));if(u.status.taunt)st.push(statusChip('taunt','TAUNT'));if(u.status.blind)st.push(statusChip('blind','BLIND',true));if(u.status.guard)st.push(statusChip('guard','GUARD'));if(u.status.pastureCounter)st.push(statusChip('counter','BLACK PASTURE'));if(u.status.offenseUp)st.push(statusChip('offenseUp','OFFENSE UP'));if(u.status.defenseUp)st.push(statusChip('defenseUp','DEFENSE UP'));if(u.status.evasionUp)st.push(statusChip('evasionUp','EVASION UP'));if(u.status.speedUp)st.push(statusChip('speedUp','SPEED UP'));if(u.status.commanded)st.push(statusChip('commanded','COMMANDED'));if(u.status.momentum)st.push(statusChip('momentum',`MOMENTUM ${u.status.momentum}`));if(u.status.voyage)st.push(statusChip('voyage',`VOYAGE ${u.status.voyage}`));if(u.status.brotherGuard)st.push(statusChip('brotherGuard',`TWIN GUARD ${Math.max(1,u.status.brotherGuard-1)}`));if(u.status.quarry)st.push(statusChip('quarry','QUARRY',true));if(u.status.marked)st.push(statusChip('marked','MARKED',true));if(u.status.critChanceUp)st.push(statusChip('critChanceUp','CRIT CHANCE UP'));if(u.status.critDamageUp)st.push(statusChip('critDamageUp','CRIT DAMAGE UP'));let stx=st.join('');return`<div class="fighter ${u.dead?'dead':''} ${state.battle.active===u?'active':''} ${u.status.taunt?'taunting':''} ${u.status.stealth?'stealthed':''} ${u.status.stun?'is-stunned':''} ${u.status.stag?'stag-form':''}" data-unit="${u.id}" role="button" tabindex="${u.dead?-1:0}" aria-label="${u.n}, level ${u.lv}, ${u.side==='p'?'ally':'enemy'}, ${Math.max(0,u.hp)} of ${u.maxHp} health"><span class="fighter-level">LV ${u.lv}</span><div class="fighter-img ${pClass(u.id)}"></div><div class="fighter-info"><div class="fighter-name">${u.short||u.n}</div><div class="numbers">${Math.max(0,u.hp)} / ${u.maxHp} HP · ATK ${u.atk} · DEF ${u.def} · SPD ${u.spd} · CRIT ${Math.round((u.critChance+(u.status.critChanceUp?.25:0))*100)}% · EVA ${Math.round(u.evasion*100)}%</div><div class="bar" aria-label="Health ${Math.max(0,u.hp)} of ${u.maxHp}"><div class="fill health" style="width:${Math.max(0,u.hp/u.maxHp*100)}%"></div>${u.status.shield?`<div class="fill shield-fill" style="width:${Math.min(100,u.status.shield/u.maxHp*100)}%"></div>`:''}</div><div class="bar"><div class="fill meter" style="width:${Math.min(100,u.meter)}%"></div></div><div class="buffs">${stx}</div></div></div>`}
 updatePresetVisibility();renderAssembly();renderCampaign();show('campaign');
 </script>
+<script src="supabase-config.js"></script>
+<script src="cloud.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ Fates of Aeterna is a browser-playable, turn-based tactical combat game inspired
 - **Player Mode** is the progression game: authored campaign encounters, character collection, leveling, Attribute Rings, crafting, and browser-saved progress.
 - **Test Interface** is the free-form combat sandbox for balancing squads, presets, abilities, and rules.
 
-The project uses no package manager, build step, server, or external asset pipeline. Each experience is a self-contained HTML file with its CSS and JavaScript embedded alongside its UI.
+The project uses no package manager or build step. Gameplay runs in static HTML files. Player Mode optionally loads a pinned Supabase browser SDK for accounts and manual cloud saves; guest play works without a backend.
 
 ## Start here
 
@@ -40,6 +40,10 @@ For a concise orientation guide, read [docs/START_HERE.md](docs/START_HERE.md). 
 Player Mode stores progress in browser `localStorage` under `fates-of-aeterna-player-v1`. It defensively migrates supported earlier save versions. **Reset Progress** in Player Mode clears campaign completion, roster progression, materials, crafted inventory, Attribute Rings, and any active craft; it does not alter source files.
 
 The Test Interface is a separate sandbox and does not share that Player Mode progression.
+
+## Accounts and cloud saves
+
+Player Mode now includes an Account & cloud save panel. The Supabase Free project and private save table are configured; public email registration still needs authentication redirect and email-delivery setup. Cloud transfers are manual and preserve the existing device save until explicitly restored. See [setup and verification](docs/SUPABASE_SETUP.md). Online multiplayer is a later phase.
 
 ## Working on the project
 
