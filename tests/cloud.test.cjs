@@ -34,10 +34,10 @@ test('first sign-in can leave cloud sync disabled',async()=>{
   const h=await setup({confirmChoice:false});await h.get('cloudForm').onsubmit({preventDefault(){}});await tick();
   assert.equal(h.writes.length,0);assert.match(h.get('cloudStatus').textContent,/not synced/);
 });
-test('existing cloud progress is restored and backed up on sign-in',async()=>{
+test('existing cloud progress never prompts or overwrites device progress on sign-in',async()=>{
   const remote={version:7,characters:{atalanta:{level:9}}},h=await setup({existing:{revision:3,progress:remote}});
   await h.get('cloudForm').onsubmit({preventDefault(){}});await tick();
-  assert.equal(JSON.parse(h.storage.get('save')).characters.atalanta.level,9);assert.equal(JSON.parse(h.storage.get('save-before-cloud-restore')).wallet.gold,1234);assert.equal(h.reloads(),1);
+  assert.equal(h.storage.size,0);assert.equal(h.reloads(),0);assert.equal(h.writes.length,0);assert.match(h.get('cloudStatus').textContent,/Restore cloud save/);
 });
 test('first upload contains current progress and authenticated owner',async()=>{
   const h=await setup();await h.get('cloudUpload').onclick();

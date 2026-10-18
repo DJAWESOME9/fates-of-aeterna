@@ -40,11 +40,7 @@
           const existing=await fetchSave();if(user?.id!==owner)return;
           if(existing){
             validateSave(existing.progress);
-            if(!confirm(`Restore the cloud save for ${user.email} to this device? Your current device progress will be backed up.`)){status('Signed in. Cloud save was not restored; device progress is unchanged.');return}
-            if(user?.id!==owner)return;
-            localStorage.setItem(SAVE_KEY+'-before-cloud-restore',JSON.stringify(state.progress));
-            localStorage.setItem(SAVE_KEY,JSON.stringify(existing.progress));
-            status('Cloud progress restored. Reloading…');location.reload();return;
+            status('Signed in. Use Restore cloud save to load your account progress, or Upload device save to replace it.');return;
           }else{
             const choice=confirm(`Create a cloud save for ${user.email} from this device’s progress? Choose Cancel to keep playing without cloud sync.`);
             if(!choice){status('Signed in. This device is not synced; use Upload device save when ready.');return}
@@ -101,7 +97,7 @@
       client.auth.onAuthStateChange((event,session)=>{
         user=session?.user||null;
         if(event==='PASSWORD_RECOVERY'){recovery=true;get('cloudPanel').open=true;status('Enter a new password, then choose Set new password.')}
-        else {if(!user)recovery=false;status(user?`Signed in as ${user.email}. Checking your cloud save…`:'Guest play · progress saves on this device.');if(user&&event==='SIGNED_IN')setTimeout(()=>syncProgress(),0)}
+        else {if(!user)recovery=false;status(user?`Signed in as ${user.email}. Cloud saves are ready.`:'Guest play · progress saves on this device.')}
         render();
       });
       const {data,error}=await client.auth.getSession();if(error)throw error;user=data.session?.user||null;render();
