@@ -50,9 +50,29 @@
 .shield-fill{background:linear-gradient(90deg,#808994,#d1d6d4);border-left:1px solid #f4e6bd;box-shadow:inset 1px 0 #ffffff55}
 .fighter.stag-form{filter:saturate(.55) sepia(.25);border-color:#b18a58}.fighter.stag-form:before{content:'STAG · MARKED';position:absolute;inset:0;z-index:4;display:grid;place-items:center;background:#392b1b66;color:#ffe6b0;font-size:9px;font-weight:bold;letter-spacing:.12em;text-shadow:0 2px 3px #000;pointer-events:none}
 </style>
+<style>
+/* Keep squad selection and battle controls close at phone widths. */
+.landscape-prompt{display:none}
+@media(max-width:700px){
+  .sanctum-head{min-height:0}.sanctum-copy{padding:18px 16px}.sanctum-copy h2{font-size:clamp(34px,10vw,46px)}.sanctum-copy p{margin-top:9px}
+  .assembly{display:flex;flex-direction:column;gap:12px;padding:12px 10px}.squad-panel{position:sticky;top:62px;z-index:15;order:0;padding:10px;box-shadow:0 6px 18px #0009}.squad-panel h3{font-size:15px}.rule,.mechanic,.presets,.journey{display:none}.slots{gap:4px}.slot{min-height:48px;font-size:8px}.slot .mini{width:26px;height:26px;margin-bottom:2px}.presets{margin:0 0 5px}.start{padding:9px}.error{min-height:0;margin:3px 0}.roster-head{margin:0 0 7px}.roster-head h3{font-size:16px}.filters{overflow-x:auto;flex-wrap:nowrap;padding:2px 0 7px;margin-bottom:5px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.filter{flex:0 0 auto}.roster{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.card{min-height:0}.portrait{height:90px}.card-body{padding:7px}.card h4{font-size:14px}.meta{margin-bottom:4px}.tags{gap:3px}.card-desc{display:none}
+  .battle{padding:8px 7px 16px}.battle-head{position:sticky;top:62px;z-index:14;background:#17130fee;padding:6px 0;margin:0 0 7px}.battle-title h2{font-size:17px}.battle-title p{font-size:9px}.battle-tools{gap:4px}.battle-tools button{padding:6px}.arena{gap:38px;padding-top:48px}.team-resource{top:7px;padding:5px 7px}.enemies{order:1}.players{order:2}.fighter-img{height:65px}.fighter-info{padding:4px}.fighter .numbers{font-size:8px}.battle-bottom{position:sticky;bottom:0;z-index:13;display:block;padding-top:6px;background:linear-gradient(transparent,#17130f 8%)}.command{padding:8px;min-height:0;box-shadow:0 -6px 18px #0005}.turn-help{margin:3px 0 5px;font-size:10px}.ability-detail{padding:6px 8px;min-height:0;margin-bottom:5px}.ability-detail p{margin:3px 0;font-size:10px}.abilities{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.ability{min-height:52px;padding:6px}.ability b{font-size:12px}.ability small{font-size:9px;margin-top:2px}.log{height:90px;margin-top:6px}
+}
+@media(max-width:700px) and (orientation:portrait){
+  .landscape-prompt{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;background:#100d0bf5;text-align:center}
+  .landscape-prompt-card{width:min(340px,100%);border:1px solid #bd8744;background:linear-gradient(150deg,#39291a,#17110d);padding:24px 20px;box-shadow:0 18px 60px #000c}
+  .landscape-prompt-icon{font-size:42px;color:#f2c96d;line-height:1;margin-bottom:12px}
+  .landscape-prompt h2{margin:0;color:#f2c96d;font-size:23px;letter-spacing:.08em;text-transform:uppercase}
+  .landscape-prompt p{margin:10px 0 0;color:#d0bd9a;font-size:13px;line-height:1.5}
+}
+@media(max-width:900px) and (orientation:landscape){
+  .topbar{height:52px;padding:0 14px}.brand h1{font-size:16px}.brand small{display:none}.assembly{grid-template-columns:minmax(0,1fr) minmax(260px,.62fr);gap:12px;padding:10px}.squad-panel{position:sticky;top:60px;padding:12px}.sanctum-head{min-height:140px}.sanctum-copy{padding:20px 28px}.sanctum-copy h2{font-size:42px}.sanctum-copy p{margin-top:8px}.roster{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.card{min-height:0}.portrait{height:78px}.card-body{padding:6px}.card-desc{display:none}.slot{min-height:54px}.slot .mini{width:30px;height:30px}.battle{padding:6px 12px 12px}.battle-head{margin-bottom:6px}.battle-title h2{font-size:18px}.arena{height:calc(100svh - 210px);min-height:300px;max-height:440px}.combat-row{gap:4px}.fighter{width:min(14vw,135px);min-width:78px}.fighter-img{height:72px}.fighter-info{padding:4px}.numbers{font-size:8px}.battle-bottom{grid-template-columns:minmax(0,1.4fr) minmax(190px,.6fr);gap:7px}.command{padding:8px;min-height:0}.ability{min-height:58px;padding:7px}.ability-detail{min-height:0;padding:6px 8px;margin-bottom:5px}.log{height:100px}
+}
+</style>
 </head>
 <body>
 <div class="shell">
+  <aside class="landscape-prompt" role="status" aria-live="polite"><div class="landscape-prompt-card"><div class="landscape-prompt-icon" aria-hidden="true">↻</div><h2>Turn your device</h2><p>Fates of Aeterna is designed to be played in landscape. Rotate your phone to continue.</p></div></aside>
   <header class="topbar"><div class="brand"><span class="sigil"></span><div><h1>Fates of Aeterna</h1><small>A Greek & Roman mythic strategy</small></div></div><div class="topbar-tools"><button id="soundBtn" class="sound-btn" type="button" aria-pressed="true">♫ SOUND ON</button><span class="viewmark" id="viewMark">The Sanctum · Assemble</span></div></header>
   <main>
     <section id="sanctum" class="screen">
