@@ -5,7 +5,7 @@ const {readFileSync}=require('node:fs');
 const vm=require('node:vm');
 const source=readFileSync(require('node:path').join(__dirname,'../play/cloud.js'),'utf8');
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
-async function setup({existing=null,conflict=false,battle=null,configured=true}={}){
+async function setup({existing=null,conflict=false,battle=null,configured=true,confirmChoice=true}={}){
   const elements=new Map(),storage=new Map(),writes=[],progress={version:7,characters:{atalanta:{level:5}},wallet:{gold:1234}};
   let reloads=0,authCallback;
   const get=id=>{if(!elements.has(id))elements.set(id,{value:'',disabled:false,reportValidity:()=>true});return elements.get(id)};
@@ -22,13 +22,22 @@ async function setup({existing=null,conflict=false,battle=null,configured=true}=
   const context={document:{getElementById:get,createElement:()=>({}),head:{appendChild:script=>script.onload()}},
     window:{AETERNA_SUPABASE:configured?{url:'https://example.invalid',publishableKey:'public'}:{},supabase:{createClient:()=>client}},
     state:{progress,battle},SAVE_KEY:'save',localStorage:{setItem:(key,value)=>storage.set(key,value)},
-    confirm:()=>true,location:{protocol:'https:',origin:'https://game.invalid',pathname:'/play/',reload:()=>reloads++}};
+    confirm:()=>confirmChoice,location:{protocol:'https:',origin:'https://game.invalid',pathname:'/play/',reload:()=>reloads++}};
   vm.runInNewContext(source,context);await tick();
   return {get,storage,writes,progress,context,reloads:()=>reloads,auth:()=>authCallback};
 }
-test('signing in preserves local progress and does not write cloud data',async()=>{
+test('first sign-in offers device progress as the initial cloud save',async()=>{
   const h=await setup();await h.get('cloudForm').onsubmit({preventDefault(){}});await tick();
-  assert.equal(h.progress.wallet.gold,1234);assert.equal(h.storage.size,0);assert.equal(h.writes.length,0);
+  assert.equal(h.progress.wallet.gold,1234);assert.equal(h.storage.size,0);assert.equal(h.writes.length,1);assert.equal(h.writes[0].operation,'insert');
+});
+test('first sign-in can leave cloud sync disabled',async()=>{
+  const h=await setup({confirmChoice:false});await h.get('cloudForm').onsubmit({preventDefault(){}});await tick();
+  assert.equal(h.writes.length,0);assert.match(h.get('cloudStatus').textContent,/not synced/);
+});
+test('existing cloud progress is restored and backed up on sign-in',async()=>{
+  const remote={version:7,characters:{atalanta:{level:9}}},h=await setup({existing:{revision:3,progress:remote}});
+  await h.get('cloudForm').onsubmit({preventDefault(){}});await tick();
+  assert.equal(JSON.parse(h.storage.get('save')).characters.atalanta.level,9);assert.equal(JSON.parse(h.storage.get('save-before-cloud-restore')).wallet.gold,1234);assert.equal(h.reloads(),1);
 });
 test('first upload contains current progress and authenticated owner',async()=>{
   const h=await setup();await h.get('cloudUpload').onclick();
