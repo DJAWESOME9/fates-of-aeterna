@@ -18,7 +18,7 @@ The game files use plain JavaScript with compact data literals, `const` for stat
 
 ## Changelog Requirements
 
-Every user-visible game update must include a concise, dated entry in the in-game changelog in `play/index.html`. Bump the `game-update-id` meta value whenever adding a new changelog release; Player Mode will show the Updates popup once per browser for each new ID. Keep the Updates button available so players can reopen the changelog.
+Every user-visible game update must include a concise, dated entry with a semantic version number in the in-game changelog in `play/index.html`. Include the weekday, month, day, and year (for example, `Monday, October 19, 2026`). Update the `game-version` meta value and bump the `game-update-id` meta value whenever adding a new changelog release; Player Mode will show the Updates popup once per browser for each new ID. Keep the Updates button available so players can reopen the changelog.
 
 ## Commit & Pull Request Guidelines
 
