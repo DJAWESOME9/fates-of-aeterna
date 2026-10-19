@@ -16,6 +16,10 @@ For Player Mode, check both a fresh save and an existing save after changing per
 
 The game files use plain JavaScript with compact data literals, `const` for static records, camelCase for functions and state, and lowercase identifier-style character IDs. Keep additions compatible with direct browser execution: do not introduce imports, package dependencies, or a transpilation requirement. Character records, preset IDs, campaign enemy references, persistence records, and CSS portrait classes must stay aligned by ID.
 
+## Changelog Requirements
+
+Every user-visible game update must include a concise, dated entry in the in-game changelog in `play/index.html`. Bump the `game-update-id` meta value whenever adding a new changelog release; Player Mode will show the Updates popup once per browser for each new ID. Keep the Updates button available so players can reopen the changelog.
+
 ## Commit & Pull Request Guidelines
 
 Recent commits use concise, imperative, sentence-style subjects such as `Add campaign enemy portraits` and `Fix Aquilifer ability descriptions`. Keep commits similarly scoped to one visible behavior or content change. In a pull request, state which mode was tested and call out any save-data migration, balance, campaign reward, or responsive-layout impact.
